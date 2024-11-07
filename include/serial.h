@@ -6,8 +6,9 @@
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/dma.h>
 
+#include <string.h>
 
 void serial_setup(void);
-void serial_send(char *data, int size);
+void serial_send(const char *data);
 
 #endif //_SERIAL_H

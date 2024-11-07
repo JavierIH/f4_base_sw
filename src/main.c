@@ -20,7 +20,7 @@ void sys_tick_handler(void){
     millis++;
 }
 
-char msg[] = "OK!\n\r";
+char text_buffer[64];
 
 int main(void) {
     clock_setup();
@@ -31,14 +31,17 @@ int main(void) {
     rcc_periph_clock_enable(RCC_GPIOA);
 
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
-
+    volatile int counter = 0;
     while (1){
         gpio_set(GPIOA, GPIO5);
-        wait(100);
+        wait(10);
         gpio_clear(GPIOA, GPIO5);
-        wait(100);
+        wait(10);
         //usart_send_blocking(USART2, 'A');
-        serial_send(msg, sizeof(msg));
+        //serial_send(msg, sizeof(msg));
+        sprintf(text_buffer, "HOLA %d \n\r", counter);
+        serial_send(text_buffer);
+        counter++;
     }
 
     return 0;
